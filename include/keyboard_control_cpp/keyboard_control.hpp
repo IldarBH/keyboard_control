@@ -1,40 +1,42 @@
 #pragma once
-#include <rclcpp/rclcpp.hpp>
-#include <geometry_msgs/msg/twist.hpp>
 
-#include <chrono>
 #include <string>
-#include <memory>
-
+#include <vector>
+#include <unordered_map>
 #include <termios.h>
 
-class TermialSettingsGuard
+struct JointAction
+{
+    std::string joint_name;
+    float value;
+};
+
+enum class ControlType
+{
+    RELATIVE,
+    ABSOLUTE
+};
+
+struct KeyBinding
+{
+    std::string key;
+    std::string name;
+    ControlType type;
+    std::vector<JointAction> actions;
+};
+
+using BindingMap = std::unordered_map<char, KeyBinding>;
+
+BindingMap read_bindings(const std::string& filename);
+
+class TerminalSettingsGuard
 {
 public:
-    TermialSettingsGuard();
+    TerminalSettingsGuard();
 
-    ~TermialSettingsGuard();
+    ~TerminalSettingsGuard();
 
     char get_key() const;
 private:
     struct termios original_settings_;
-};
-
-class KeyboardControlNode : public rclcpp::Node
-{
-public:
-    KeyboardControlNode(
-        const std::string& node_name = "keyboard_control_node",
-        const std::string& cmd_topic_name = "cmd_vel", 
-        const std::chrono::milliseconds& update_rate = std::chrono::milliseconds(100)
-    );
-
-    ~KeyboardControlNode();
-
-private:
-    void update_();
-
-    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_;
-    rclcpp::TimerBase::SharedPtr timer_;
-    std::unique_ptr<TermialSettingsGuard> ts_guard_;
 };

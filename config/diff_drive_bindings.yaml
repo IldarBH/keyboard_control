@@ -1,0 +1,77 @@
+# This YAML file defines key bindings for controlling a differential drive robot.
+# Each key binding maps a specific key to a set of joint actions.
+# Each action specifies a joint and a value that represents the speed or direction for that joint.
+# Action field descriptions:
+# - joint: The name of the joint to control.
+# - value: The value to set for the joint, representing speed or direction.
+# Key binding fields descriptions:
+# - name: The name of the key binding.
+# - key: The key associated with the binding.
+# - type: The type of control ('relative' or 'absolute'). Type 'relative' applies changes incrementally; 'absolute' sets state directly.
+# - actions: The list of actions to perform when the key is pressed.
+
+key_bindings:
+  - name: "Forward"
+    key: 'w'
+    type: "relative"
+    actions:
+      - joint: "left_wheel_joint"
+        value: 1.0
+      - joint: "right_wheel_joint"
+        value: 1.0
+  - name: "Backward"
+    key: 's'
+    type: "relative"
+    actions:
+      - joint: "left_wheel_joint"
+        value: -1.0
+      - joint: "right_wheel_joint"
+        value: -1.0
+  - name: "Turn Left"
+    key: 'a'
+    type: "relative"
+    actions:
+      - joint: "left_wheel_joint"
+        value: -1.0
+      - joint: "right_wheel_joint"
+        value: 1.0
+  - name: "Turn Right"
+    key: 'd'
+    type: "relative"
+    actions:
+      - joint: "left_wheel_joint"
+        value: 1.0
+      - joint: "right_wheel_joint"
+        value: -1.0
+  - name: "Pivot Left Forward"
+    key: 'q'
+    type: "relative"
+    actions:
+      - joint: "right_wheel_joint"
+        value: 0.5
+  - name: "Pivot Right Forward"
+    key: 'e'
+    type: "relative"
+    actions:
+      - joint: "left_wheel_joint"
+        value: 0.5
+  - name: "Pivot Left Backward"
+    key: 'z'
+    type: "relative"
+    actions:
+      - joint: "right_wheel_joint"
+        value: -0.5
+  - name: "Pivot Right Backward"
+    key: 'c'
+    type: "relative"
+    actions:
+      - joint: "left_wheel_joint"
+        value: -0.5
+  - name: "Stop"
+    key: 'x'
+    type: "absolute"
+    actions:
+      - joint: "left_wheel_joint"
+        value: 0.0
+      - joint: "right_wheel_joint"
+        value: 0.0
