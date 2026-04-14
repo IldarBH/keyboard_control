@@ -8,6 +8,7 @@
 struct JointAction
 {
     std::string joint_name;
+    std::string topic_name;
     float value;
 };
 
@@ -19,7 +20,7 @@ enum class ControlType
 
 struct KeyBinding
 {
-    std::string key;
+    char key;
     std::string name;
     ControlType type;
     std::vector<JointAction> actions;
@@ -36,7 +37,7 @@ public:
 
     ~TerminalSettingsGuard();
 
-    char get_key() const;
+    static char get_key();
 private:
     struct termios original_settings_;
 };

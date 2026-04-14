@@ -8,7 +8,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(geometry_msgs REQUIRED)
+find_package(trajectory_msgs REQUIRED)
 find_package(yaml-cpp REQUIRED)
 
 add_executable(${PROJECT_NAME}_node src/keyboard_control.cpp src/keyboard_control_node.cpp)
@@ -18,7 +18,7 @@ target_include_directories(${PROJECT_NAME}_node PUBLIC
 target_link_libraries(
   ${PROJECT_NAME}_node
   ${rclcpp_TARGETS}
-  ${geometry_msgs_TARGETS}
+  ${trajectory_msgs_TARGETS}
   ${YAML_CPP_LIBRARIES}
 )
 # suppress pedantic warnings

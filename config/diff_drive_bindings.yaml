@@ -16,62 +16,76 @@ key_bindings:
     type: "relative"
     actions:
       - joint: "left_wheel_joint"
+        topic: "/left_wheel_cmd"
         value: 1.0
       - joint: "right_wheel_joint"
-        value: 1.0
+        topic: "/right_wheel_cmd"
+        value: -1.0
   - name: "Backward"
     key: 's'
     type: "relative"
     actions:
       - joint: "left_wheel_joint"
+        topic: "/left_wheel_cmd"
         value: -1.0
       - joint: "right_wheel_joint"
-        value: -1.0
+        topic: "/right_wheel_cmd"
+        value: 1.0
   - name: "Turn Left"
     key: 'a'
     type: "relative"
     actions:
       - joint: "left_wheel_joint"
+        topic: "/left_wheel_cmd"
         value: -1.0
       - joint: "right_wheel_joint"
-        value: 1.0
+        topic: "/right_wheel_cmd"
+        value: -1.0
   - name: "Turn Right"
     key: 'd'
     type: "relative"
     actions:
       - joint: "left_wheel_joint"
+        topic: "/left_wheel_cmd"
         value: 1.0
       - joint: "right_wheel_joint"
-        value: -1.0
+        topic: "/right_wheel_cmd"
+        value: 1.0
   - name: "Pivot Left Forward"
     key: 'q'
     type: "relative"
     actions:
       - joint: "right_wheel_joint"
-        value: 0.5
+        topic: "/right_wheel_cmd"
+        value: -1.0
   - name: "Pivot Right Forward"
     key: 'e'
     type: "relative"
     actions:
       - joint: "left_wheel_joint"
-        value: 0.5
+        topic: "/left_wheel_cmd"
+        value: 1.0
   - name: "Pivot Left Backward"
     key: 'z'
     type: "relative"
     actions:
       - joint: "right_wheel_joint"
-        value: -0.5
+        topic: "/right_wheel_cmd"
+        value: 1.0
   - name: "Pivot Right Backward"
     key: 'c'
     type: "relative"
     actions:
       - joint: "left_wheel_joint"
-        value: -0.5
+        topic: "/left_wheel_cmd"
+        value: -1.0
   - name: "Stop"
     key: 'x'
     type: "absolute"
     actions:
       - joint: "left_wheel_joint"
+        topic: "/left_wheel_cmd"
         value: 0.0
       - joint: "right_wheel_joint"
+        topic: "/right_wheel_cmd"
         value: 0.0

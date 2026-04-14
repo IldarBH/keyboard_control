@@ -20,6 +20,7 @@ struct convert<JointAction> {
         }
 
         rhs.joint_name = node["joint"].as<std::string>();
+        rhs.topic_name = node["topic"].as<std::string>();
         rhs.value = node["value"].as<float>();
         return true;
     }
@@ -33,7 +34,7 @@ struct convert<KeyBinding> {
             std::cerr << "Invalid key binding format. Expected a map." << std::endl;
             return false;
         }
-        rhs.key = node["key"].as<std::string>();
+        rhs.key = node["key"].as<char>();
         rhs.name = node["name"].as<std::string>();
         const auto type_str = node["type"].as<std::string>();
         if (type_str == "relative") {
@@ -57,10 +58,8 @@ BindingMap read_bindings(const std::string& filename)
     if (const auto bindings_node = root_node["key_bindings"]; bindings_node){
         for (const auto& binding_node : bindings_node) {
             const auto binding = binding_node.as<KeyBinding>();
-            if (!binding.key.empty()) {
-                bindings[binding.key[0]] = binding;
-                std::cout << "Loaded binding: " << binding.key << " -> " << binding.name << std::endl;
-            }
+            bindings[binding.key] = binding;
+            std::cout << "Loaded binding: " << binding.key << " -> " << binding.name << std::endl;
         }
     } else {
         std::cout << "empty" << std::endl;
@@ -92,7 +91,7 @@ TerminalSettingsGuard::~TerminalSettingsGuard()
     fcntl(STDIN_FILENO, F_SETFL, 0);                            // Clear non-blocking mode.
 }
 
-char TerminalSettingsGuard::get_key() const
+char TerminalSettingsGuard::get_key()
 {
     char key;
     ssize_t n_bytes = read(STDIN_FILENO, &key, 1);
