@@ -23,4 +23,5 @@ private:
     rclcpp::TimerBase::SharedPtr timer_;
     std::unique_ptr<TerminalSettingsGuard> ts_guard_;
     std::unordered_map<std::string, rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr> publishers_;
+    std::unordered_map<std::string, float> current_values_;
 };

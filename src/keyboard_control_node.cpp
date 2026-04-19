@@ -14,6 +14,7 @@ KeyboardControlNode::KeyboardControlNode(
         for (const auto& action : binding.actions) {
             if (publishers_.find(action.topic_name) == publishers_.end()) {
                 publishers_[action.topic_name] = this->create_publisher<std_msgs::msg::Float64>(action.topic_name, 10);
+                current_values_[action.topic_name] = 0.0f;
                 RCLCPP_INFO(this->get_logger(), "Created publisher for topic '%s'", action.topic_name.c_str());
             }
         }
@@ -46,21 +47,15 @@ void KeyboardControlNode::update_()
 
 void KeyboardControlNode::process_key_(const KeyBinding& binding)
 {
-    // trajectory_msgs::msg::JointTrajectory traj_msg;
-    // traj_msg.header.stamp = this->now();
-    // traj_msg.joint_names.reserve(binding.actions.size());
-    
-    // trajectory_msgs::msg::JointTrajectoryPoint traj_point;
-    // for (const auto& action : binding.actions) {
-    //     traj_msg.joint_names.push_back(action.joint_name);
-    //     traj_point.velocities.push_back(action.value);
-    // }
-    // traj_point.time_from_start = rclcpp::Duration::from_seconds(0.1);
-    // traj_msg.points.push_back(traj_point);
     for (const auto& action : binding.actions) {
         if (const auto& it = publishers_.find(action.topic_name); it != publishers_.end()) {
+            if (binding.type == ControlType::RELATIVE) {
+                current_values_[action.topic_name] += action.value;
+            } else {
+                current_values_[action.topic_name] = action.value;
+            }
             std_msgs::msg::Float64 msg;
-            msg.data = action.value;
+            msg.data = current_values_[action.topic_name];
             it->second->publish(msg);
         }
     }
