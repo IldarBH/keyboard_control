@@ -20,7 +20,7 @@ key_bindings:
         value: 1.0
       - joint: "right_wheel_joint"
         topic: "/right_wheel_cmd"
-        value: -1.0
+        value: 1.0
   - name: "Backward"
     key: 's'
     type: "relative"
@@ -30,7 +30,7 @@ key_bindings:
         value: -1.0
       - joint: "right_wheel_joint"
         topic: "/right_wheel_cmd"
-        value: 1.0
+        value: -1.0
   - name: "Turn Left"
     key: 'a'
     type: "relative"
@@ -40,7 +40,7 @@ key_bindings:
         value: -1.0
       - joint: "right_wheel_joint"
         topic: "/right_wheel_cmd"
-        value: -1.0
+        value: 1.0
   - name: "Turn Right"
     key: 'd'
     type: "relative"
@@ -50,14 +50,14 @@ key_bindings:
         value: 1.0
       - joint: "right_wheel_joint"
         topic: "/right_wheel_cmd"
-        value: 1.0
+        value: -1.0
   - name: "Pivot Left Forward"
     key: 'q'
     type: "relative"
     actions:
       - joint: "right_wheel_joint"
         topic: "/right_wheel_cmd"
-        value: -1.0
+        value: 1.0
   - name: "Pivot Right Forward"
     key: 'e'
     type: "relative"
@@ -71,7 +71,7 @@ key_bindings:
     actions:
       - joint: "right_wheel_joint"
         topic: "/right_wheel_cmd"
-        value: 1.0
+        value: -1.0
   - name: "Pivot Right Backward"
     key: 'c'
     type: "relative"
